@@ -15,18 +15,28 @@ class SfLinkScraper
   def retrieve_links
     @driver.get @base_url
 
-    loop do
-      scrape_current_page
+    begin
+      loop do
+        scrape_current_page
 
-      next_button = @wait.until { @driver.find_element(xpath: '/html/body/div[1]/section/div/div[3]/div/div[2]/a[2]/div')}
-      break unless next_button.enabled?
+        next_button = @wait.until { @driver.find_element(xpath: '/html/body/div[1]/section/div/div[3]/div/div[2]/a[2]/div')}
+        break unless next_button.enabled?
 
-      next_button.click
+        begin
+          next_button.click
+        rescue Selenium::WebDriver::Error::ElementClickInterceptedError, Selenium::WebDriver::Error::ElementNotInteractableError => e
+          puts "Error clicking next button: #{e.message}"
+          break
+        end
+
       sleep 3
     end
-    
+
     puts "Scraping Complete"
-    @driver.quit
+    ensure
+      @driver.quit
+    end
+
     @job_links
   end
 
