@@ -23,9 +23,19 @@ class SfPostScraper
         part_full_time = post.css(".job-post-info-text").first.text.strip
         location = post.css(".job-post-info-text")[1].text.strip
         details = post.css(".rich-text.w-richtext").text
+        job_post_date = post.xpath("/html/body/div[1]/section/div/div[2]/div[1]/div[1]/div[2]/div").text
+        apply_link = post.xpath("/html/body/div[1]/section/div/div[2]/div[1]/div[3]/a").first.attribute_nodes.first.value.strip
 
-
-        job_posting = JobPostingPoro.new(company_name, post_title, job_category, part_full_time, location, details)
+        job_posting = JobPostingPoro.new(
+          company_name,
+          post_title,
+          job_category,
+          part_full_time,
+          location,
+          details,
+          job_post_date,
+          apply_link
+          )
 
         @job_posts << job_posting
       end
@@ -33,5 +43,3 @@ class SfPostScraper
     @job_posts
   end
 end
-
-# JobPosting = Struct.new(:company_name, :post_title, :job_category, :part_full_time, :location, :details)
