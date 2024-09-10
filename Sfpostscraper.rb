@@ -1,7 +1,9 @@
 require "httparty"
 require "nokogiri"
 require "csv"
+require "./Assets/spinner.rb"
 require_relative "Jobpostingporo"
+require "./Assets/spinner.rb"
 
 class SfPostScraper
 
@@ -11,6 +13,9 @@ class SfPostScraper
   end
 
   def scrape_posts
+
+    spinner = Spinner.new(@job_links.size)
+
     @job_links.each do |link|
       response = HTTParty.get("https://www.thesiliconforest.com/#{link}")
       document = Nokogiri::HTML(response.body)
@@ -38,6 +43,7 @@ class SfPostScraper
           )
 
         @job_posts << job_posting
+        spinner.spin
       end
     end
     @job_posts

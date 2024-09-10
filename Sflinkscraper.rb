@@ -2,6 +2,7 @@ require "httparty"
 require "nokogiri"
 require "csv"
 require "selenium-webdriver"
+require "./Assets/spinner.rb"
 
 class SfLinkScraper
 
@@ -13,7 +14,9 @@ class SfLinkScraper
   end
 
   def retrieve_links
+    puts "Retrieving links..."
     @driver.get @base_url
+    spinner = Spinner.new(0)
 
     begin
       loop do
@@ -29,6 +32,7 @@ class SfLinkScraper
           break
         end
 
+        spinner.spinner_only
       sleep 3
     end
 
