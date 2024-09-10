@@ -6,9 +6,8 @@ gem "httparty"
 gem "nokogiri"
 gem 'selenium-webdriver'
 gem "rspec"
+gem "rspec-expectations"
 gem "pry"
-gem "vcr"
-gem "webmock"
 
 group :test do
   gem 'rspec'
