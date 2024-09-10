@@ -9,7 +9,7 @@ class Sfcsvcreator
     puts ""
     puts "Creating CSV..."
 
-    csv_headers = ["company_name", "post_title", "job_category", "part_full_time", "location", "details", "job_post_date", "apply_link"]
+    csv_headers = ["company_name", "post_title", "job_category", "part_time_full_time", "location", "details", "job_post_date", "apply_link"]
     spinner = Spinner.new(data.size)
 
     CSV.open("Silicone_forest_listing.csv", "wb", write_headers: true, headers: csv_headers, skip_blanks: true,) do |csv|

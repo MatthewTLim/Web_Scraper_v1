@@ -13,8 +13,7 @@ class SfPostScraper
   end
 
   def scrape_posts
-    print "Scraping post data..."
-    
+
     spinner = Spinner.new(@job_links.size)
 
     @job_links.each do |link|
