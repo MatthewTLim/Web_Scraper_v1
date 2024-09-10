@@ -9,7 +9,6 @@ RSpec.describe LinkScraper, :vcr do
   it "retrieves job links", :vcr do
     VCR.use_cassette("retrieves_job_links") do
       job_links = link_scraper.retrieve_links
-      expect(job_links).not_to be_empty
       expect(job_links.size).to be > 1
     end
   end
